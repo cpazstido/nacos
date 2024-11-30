@@ -360,6 +360,7 @@ public class ConfigController {
         
         // do long-polling
         inner.doPollingConfig(request, response, clientMd5Map, probeModify.length());
+        System.out.println("fffff");
     }
     
     /**

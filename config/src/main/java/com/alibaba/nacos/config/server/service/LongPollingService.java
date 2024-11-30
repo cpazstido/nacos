@@ -16,6 +16,7 @@
 
 package com.alibaba.nacos.config.server.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.nacos.api.remote.RpcScheduledExecutor;
 import com.alibaba.nacos.common.notify.Event;
 import com.alibaba.nacos.common.notify.NotifyCenter;
@@ -33,6 +34,7 @@ import com.alibaba.nacos.config.server.utils.RequestUtil;
 import com.alibaba.nacos.plugin.control.ControlManagerCenter;
 import com.alibaba.nacos.plugin.control.connection.request.ConnectionCheckRequest;
 import com.alibaba.nacos.plugin.control.connection.response.ConnectionCheckResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.AsyncContext;
@@ -59,6 +61,8 @@ import static com.alibaba.nacos.config.server.utils.LogUtil.PULL_LOG;
  *
  * @author Nacos
  */
+
+@Slf4j
 @Service
 public class LongPollingService {
     
@@ -181,6 +185,9 @@ public class LongPollingService {
             LogUtil.CLIENT_LOG.info("{}|{}|{}|{}|{}|{}|{}", System.currentTimeMillis() - start, "instant",
                     RequestUtil.getRemoteIp(req), "polling", clientMd5Map.size(), probeRequestSize,
                     changedGroups.size());
+            System.out.println(StrUtil.format("{}|{}|{}|{}|{}|{}|{}", System.currentTimeMillis() - start, "instant",
+                    RequestUtil.getRemoteIp(req), "polling", clientMd5Map.size(), probeRequestSize,
+                    changedGroups.size()));
             return;
         } else if (noHangUpFlag != null && noHangUpFlag.equalsIgnoreCase(TRUE_STR)) {
             LogUtil.CLIENT_LOG.info("{}|{}|{}|{}|{}|{}|{}", System.currentTimeMillis() - start, "nohangup",
