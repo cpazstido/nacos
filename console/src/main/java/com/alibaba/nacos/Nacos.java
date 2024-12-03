@@ -43,6 +43,11 @@ import org.springframework.context.annotation.FilterType;
 public class Nacos {
     
     public static void main(String[] args) {
+        String property = System.getProperty("nacos.standalone");
+        if (null == property) {
+            // 设置单机启动
+            System.setProperty("nacos.standalone", "true");
+        }
         SpringApplication.run(Nacos.class, args);
     }
 }
